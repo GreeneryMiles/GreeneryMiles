@@ -12,10 +12,31 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+
+
+const modalBox = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-10%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+  };
 
 const Home = () => {
 
-    const [location, setLocation] = useState(false); 
+    const [open, setOpen] = useState(false); 
+
+    // form 
+    const [formData, setFormData] = useState({
+        address:'', car:'', duration:''
+    });
+
+    const handleClose = () => setOpen(false);
     const formik = useFormik({
         validationSchema: Yup.object({
             workAddress: Yup.string()
@@ -28,12 +49,12 @@ const Home = () => {
         // }
     });
 
-    // const handleSubmit = (values) = {
-    //     if(location){
-            
-    //     }
 
-    // }
+    const submissionHandler = (e) => {
+        e.preventDefault();
+        setOpen(true);
+
+    }
 
     const duration = [
         {
@@ -49,6 +70,7 @@ const Home = () => {
           label: 'Month',
         },
       ];
+
     return(
 
         <div className="form_container">
@@ -95,10 +117,32 @@ const Home = () => {
                         variant='contained' 
                         color="success" 
                         type="submit" 
-                        size="medium"
-                        >
+                        size="large"
+                        onClick={submissionHandler}                        >
                         Submit
                     </Button>
+                    <Modal  
+                        hideBackdrop 
+                        open={open} 
+                        onClose={handleClose}>
+
+                        <Box sx={modalBox} position="absolute" >
+                            <Box 
+                                display="flex"
+                                justifyContent="flex-end"
+                                alignItems="flex-end">
+                                <Button className="modalClose"  color="error" onClick={handleClose}>x</Button>
+                            </Box>
+                            
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Text in a modal
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                            </Typography>
+                            
+                        </Box>
+                    </Modal>
             </div>
 
         </Box>

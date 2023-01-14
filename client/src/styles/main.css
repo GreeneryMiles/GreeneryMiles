@@ -1,12 +1,21 @@
 .form_container { 
     /* width: 250px;
     margin: 0 auto; */
-    background-color: rgb(213, 213, 213);
-    width: 300px;
+    background-color: rgb(255, 255, 255);
+    width: 325px;
     padding: 10px;
     overflow: hidden;
     float: left;
+    position: relative;
+    z-index: 100;
+    padding: 40px;
+    height:100vh
   }
+
+.modalClose {
+  display: 'flex';
+  justifyContent: 'flex-end';
+}
 
 .projectName {
     font-family: Roboto;
