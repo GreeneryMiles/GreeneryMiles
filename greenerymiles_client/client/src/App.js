@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
-const mapStyles = {
-  width: '1000px',
-  height: '1000px',
-  padding: '50px'
+
+const styleRef = {
+  width: '100%',
+  height: '100%'
 };
+
 class App extends Component {
   render() {
     return (
       <Map
         google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={
-          {
-            lat: 43.009320,
-            lng: -81.271730
-          }
-        }
+        zoom={10}
+        style={styleRef}
+        initialCenter={{lat: 43.009320, lng: -81.271730}}
       />
     );
   }
