@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
-import pin from 'greenerymiles_client/client/src/pngegg.png';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+
+import jsondata from './housedata.json';
 
 const styleRef = {
   width: '100%',
