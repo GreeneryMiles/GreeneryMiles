@@ -1,0 +1,13 @@
+.form_container { 
+    /* width: 250px;
+    margin: 0 auto; */
+    background-color: rgb(213, 213, 213);
+    width: 300px;
+    padding: 10px;
+    overflow: hidden;
+    float: left;
+  }
+
+.projectName {
+    font-family: Roboto;
+}
