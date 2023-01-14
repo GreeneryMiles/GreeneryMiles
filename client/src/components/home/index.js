@@ -27,14 +27,20 @@ const modalBox = {
     p: 4,
   };
 
+var data = {
+    address:'', time_option:''
+}
+
 const Home = () => {
 
-    const [open, setOpen] = useState(false); 
+    const [open, setOpen] = useState(false);
 
-    // form 
+    // form
     const [formData, setFormData] = useState({
-        address:'', car:'', duration:''
+        origin:'', destination:'', time_option:''
     });
+
+    const [car, setCar] = useState('');
 
     const handleClose = () => setOpen(false);
     const formik = useFormik({
@@ -52,21 +58,32 @@ const Home = () => {
 
     const submissionHandler = (e) => {
         e.preventDefault();
-        setOpen(true);
+        // test grouping data
+        console.log(formData);
 
+        // TODO: calling APIS
+        setOpen(true);
+        clear(e);
+    }
+
+    const clear = (e) => {
+        setFormData({
+            origin:'', time_option:'', destination: ''
+        });
+        setCar('');
     }
 
     const duration = [
         {
-          value: 'day',
+          value: '1',
           label: 'Day',
         },
         {
-          value: 'week',
+          value: '7',
           label: 'Week',
         },
         {
-          value: 'month',
+          value: '30',
           label: 'Month',
         },
       ];
@@ -82,25 +99,42 @@ const Home = () => {
             component="form"
             >
             <TextField
+                name="workAddress"
+                label="Enter your home address"
+                variant="outlined"
+                margin="normal"
+                value={formData.origin}
+                onChange={(e)=>
+                    setFormData({...formData, origin: e.target.value})}
+            />
+
+            <TextField
             name="workAddress"
             label="Enter your work address" 
             variant="outlined" 
-            margin="normal" 
+            margin="normal"
+            value={formData.destination}
+            onChange={(e)=>
+                setFormData({...formData, destination: e.target.value})}
             />
 
             <TextField
             name="carMake"
             label="Enter your car make" 
             variant="outlined"
-            margin="normal"  
+            margin="normal"
+            value={car}
+            onChange={(e) =>
+                setCar(e.target.value)}
             />
-
             <TextField
                 id="outlined-select-currency"
                 select
                 label="Duration"
                 margin="normal" 
-                
+                value={formData.time_option}
+                onChange={(e) =>
+                    setFormData({...formData, time_option: e.target.value})}
                 // defaultValue="Week"
             >
                 {duration.map((option) => (
@@ -109,23 +143,23 @@ const Home = () => {
                     </MenuItem>
                 ))}
             </TextField>
-            
+            <Button
+                className='mt-3'
+                variant='contained'
+                color="success"
+                type="submit"
+                size="large"
+                onClick={submissionHandler}
+            >
+                Submit
+            </Button>
+
             
             <div className='mt-2'>
-                    <Button 
-                        className='mt-3'
-                        variant='contained' 
-                        color="success" 
-                        type="submit" 
-                        size="large"
-                        onClick={submissionHandler}                        >
-                        Submit
-                    </Button>
-                    <Modal  
+                    <Modal
                         hideBackdrop 
                         open={open} 
                         onClose={handleClose}>
-
                         <Box sx={modalBox} position="absolute" >
                             <Box 
                                 display="flex"
@@ -144,7 +178,6 @@ const Home = () => {
                         </Box>
                     </Modal>
             </div>
-
         </Box>
         </div>
     )
