@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import GoogleMapsAPI from 'googlemaps';
 import dotenv from 'dotenv'
 import distance from "google-distance-matrix";
+import { mockdata } from "./housedata.js";
 
 dotenv.config();
 
@@ -14,7 +15,6 @@ var publicConfig = {
 var gmAPI = new GoogleMapsAPI(publicConfig);
 
 distance.key(process.env.GOOGLE_GEOENCODING_API);
-distance.units('imperial');
 
 export const getCoordinatesByAddress = async (req, res) => {
     const { address } = req.body;
@@ -51,9 +51,10 @@ export const getCoordinatesByAddress = async (req, res) => {
 
 
 export const getDistanceByTwoCoordinates = async (req, res) => {
-    const {origin_lat, origin_lng, dest_lat, dest_lng} = req.body;
+    const {origin_lat, origin_lng, dest_lat, dest_lng, time_option} = req.body;
     let origin = `${origin_lat},${origin_lng}`;
     let dest = `${dest_lat},${dest_lng}`;
+    let time = Number(time_option);
 
     var origins = [];
     var destinations = [];
@@ -63,7 +64,10 @@ export const getDistanceByTwoCoordinates = async (req, res) => {
 
     // response body
     var dist = {
-        distance: ''
+        distance: '',
+        duration: '',
+        gasoline: '',
+        co2emission: ''
     }
 
     // calling google distance matrix
@@ -80,9 +84,12 @@ export const getDistanceByTwoCoordinates = async (req, res) => {
                     var origin = distances.origin_addresses[i];
                     var destination = distances.destination_addresses[j];
                     if (distances.rows[0].elements[j].status == 'OK') {
-                        var distance = distances.rows[i].elements[j].distance.text;
-                        console.log('Distance from ' + origin + ' to ' + destination + ' is ' + distance);
-                        dist.distance = distance;
+                        dist.distance = distances.rows[i].elements[j].distance.text;
+                        dist.duration = distances.rows[i].elements[j].duration.text;
+                        var temp_dist = distances.rows[i].elements[j].distance.text.replace(' km', '');
+                        var gasoline = time * Number(temp_dist) * 13;
+                        dist.gasoline = `${gasoline} liter`;
+                        dist.co2emission = `${time * Number(temp_dist) * 2.68} kg`;
                         res.json(dist);
                     } else {
                         res.status(500).json({ message: `${destination} + ' is not reachable by land from ' + ${origin}`});
@@ -91,4 +98,8 @@ export const getDistanceByTwoCoordinates = async (req, res) => {
             }
         }
     });
+}
+
+export const getHouseInfo = async (req, res) => {
+    res.json(mockdata);
 }
