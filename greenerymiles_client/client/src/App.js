@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 const mapStyles = {
-  width: '80%',
-  height: '80%'
+  width: '1000px',
+  height: '1000px',
+  padding: '50px'
 };
-export class App extends Component {
+class App extends Component {
   render() {
     return (
       <Map
