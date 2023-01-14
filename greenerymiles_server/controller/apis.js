@@ -88,8 +88,57 @@ export const getDistanceByTwoCoordinates = async (req, res) => {
                         dist.duration = distances.rows[i].elements[j].duration.text;
                         var temp_dist = distances.rows[i].elements[j].distance.text.replace(' km', '');
                         var gasoline = time * Number(temp_dist) * 13;
-                        dist.gasoline = `${gasoline} liter`;
-                        dist.co2emission = `${time * Number(temp_dist) * 2.68} kg`;
+                        dist.gasoline = `${gasoline.toPrecision(3)} liter`;
+                        dist.co2emission = `${(time * Number(temp_dist) * 2.68).toPrecision(3)} kg`;
+                        res.json(dist);
+                    } else {
+                        res.status(500).json({ message: `${destination} + ' is not reachable by land from ' + ${origin}`});
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+export const getDistanceByTwoAddress = async (req, res) => {
+    const {origin, destination, time_option} = req.body;
+    let time = Number(time_option);
+
+    var origins = [];
+    var destinations = [];
+
+    origins.push(origin);
+    destinations.push(destination);
+
+    // response body
+    var dist = {
+        distance: '',
+        duration: '',
+        gasoline: '',
+        co2emission: ''
+    }
+
+    // calling google distance matrix
+    distance.matrix(origins, destinations, function (err, distances) {
+        if (err) {
+            return console.log(err);
+        }
+        if (!distances) {
+            return console.log('no distances');
+        }
+        if (distances.status == 'OK') {
+            for (var i = 0; i < origins.length; i++) {
+                for (var j = 0; j < destinations.length; j++) {
+                    var origin = distances.origin_addresses[i];
+                    var destination = distances.destination_addresses[j];
+                    if (distances.rows[0].elements[j].status == 'OK') {
+                        dist.distance = distances.rows[i].elements[j].distance.text;
+                        dist.duration = distances.rows[i].elements[j].duration.text;
+                        var temp_dist = distances.rows[i].elements[j].distance.text.replace(' km', '');
+                        var gasoline = time * Number(temp_dist) * 13;
+                        dist.gasoline = `${gasoline.toPrecision(3)} liter`;
+                        dist.co2emission = `${(time * Number(temp_dist) * 2.68).toPrecision(3)} kg`;
                         res.json(dist);
                     } else {
                         res.status(500).json({ message: `${destination} + ' is not reachable by land from ' + ${origin}`});

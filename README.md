@@ -20,8 +20,8 @@ POST /apis/coordinates
 }
 ```
 
-2. get location distance in miles or km between two places
-POST /apis/distance
+2. get location distance between two places by two coordinates
+POST /apis/distance_cord
 
 - request body
 
@@ -45,7 +45,31 @@ POST /apis/distance
 }
 ```
 
-3. get nearby house prices 
+3. get location distance between two places by two addresses
+POST /apis/distance_addr
+
+- request body
+
+```json
+{
+    "origin": "308 Ramsay Rd, London, ON N6G 1N8", 
+    "destination": "1115 The Pkwy, London, ON N6A 2X2",
+    "time_option": "7"
+}
+```
+
+- response
+```json
+{
+    "distance": "2.7 km",
+    "duration": "7 mins",
+    "gasoline": "246 liter",
+    "co2emission": "50.7 kg"
+}
+```
+
+
+4.get nearby house prices 
 GET /apis/houses
 
 response
