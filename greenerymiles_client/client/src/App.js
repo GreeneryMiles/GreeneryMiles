@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
+import pin from 'greenerymiles_client/client/src/pngegg.png';
 
 const styleRef = {
   width: '100%',
@@ -17,6 +18,10 @@ class App extends Component {
       />
     );
   }
+}
+
+function marker(){
+
 }
 
 export default GoogleApiWrapper({
