@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-
+import pin from './pngegg.png';
 import jsondata from './housedata.json';
 
-const styleRef = {
+const mapStyleRef = {
   width: '100%',
   height: '100%'
+};
+
+const markerStyleRef = {
+  width: '50px',
+  height: '50px'
 };
 
 class App extends Component {
@@ -14,8 +19,9 @@ class App extends Component {
       <Map
         google={this.props.google}
         zoom={10}
-        style={styleRef}
+        style={mapStyleRef}
         initialCenter={{lat: 43.009320, lng: -81.271730}}
+
       />
     );
   }
