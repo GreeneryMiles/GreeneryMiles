@@ -20,3 +20,7 @@
 .projectName {
     font-family: Roboto;
 }
+
+h1, p {
+  font-family: Lato;
+}

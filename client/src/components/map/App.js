@@ -8,7 +8,7 @@ import {
   Circle
 } from "react-google-maps";
 
-const Map = props => {
+export const Map = props => {
     return (
       <GoogleMap
         defaultZoom={props.zoom}
@@ -38,7 +38,7 @@ const Map = props => {
     );
 }
 
-export default withScriptjs(withGoogleMap(Map));
+ export default withScriptjs(withGoogleMap(Map));
 
 
 

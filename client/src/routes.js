@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 import Home from './components/home';
-import Map from './components/map';
+import Map from './components/map/App';
 
 const Router = () => {
     return(  
