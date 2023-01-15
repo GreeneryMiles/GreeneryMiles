@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import React, { Component, Fragment } from 'react';
+import { Map, GoogleApiWrapper, Marker, InfoWindow, Circle } from 'google-maps-react';
 import jsondata from './housedata.json';
 
 const mapStyleRef = {
@@ -7,6 +7,17 @@ const mapStyleRef = {
   height: '100%',
   position: 'absolute'
 };
+
+const cityCircle = new google.maps.Circle({
+  strokeColor: "#FF0000",
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: "#FF0000",
+  fillOpacity: 0.35,
+  map,
+  center: citymap[city].center,
+  radius: Math.sqrt(citymap[city].population) * 100,
+});
 
 
 export class App extends Component {
@@ -61,6 +72,13 @@ displayMarkers = () => {
           initialCenter={{ lat: jsondata.data[0].lat, lng: jsondata.data[0].lng}}
 
         >
+          <Fragment>
+            <Circle
+            defaultCenter={{ lat: jsondata.data[0].lat, lng: jsondata.data[0].lng}}
+            radius={10000}
+            style={circleStyle}
+          />
+          </Fragment>
           {this.displayMarkers()}
           <Marker
           onClick={this.onMarkerClick}
