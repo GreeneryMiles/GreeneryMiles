@@ -116,7 +116,8 @@ export const getDistanceByTwoAddress = async (req, res) => {
         distance: '',
         duration: '',
         gasoline: '',
-        co2emission: ''
+        co2emission: '',
+        price: ''
     }
 
     // calling google distance matrix
@@ -137,8 +138,9 @@ export const getDistanceByTwoAddress = async (req, res) => {
                         dist.duration = distances.rows[i].elements[j].duration.text;
                         var temp_dist = distances.rows[i].elements[j].distance.text.replace(' km', '');
                         var gasoline = time * Number(temp_dist) * 13;
-                        dist.gasoline = `${gasoline.toPrecision(3)} liter`;
+                        dist.gasoline = `${gasoline}`;
                         dist.co2emission = `${(time * Number(temp_dist) * 2.68).toPrecision(3)} kg`;
+                        dist.price = `${gasoline * 1.48}`
                         res.json(dist);
                     } else {
                         res.status(500).json({ message: `${destination} + ' is not reachable by land from ' + ${origin}`});
