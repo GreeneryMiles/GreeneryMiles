@@ -118,5 +118,5 @@ const farOptions = {
 
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDsB764Ax1QjNFQ2_rSbwDaPJLlU81JBYc'
+  apiKey: ''
 })(App);
