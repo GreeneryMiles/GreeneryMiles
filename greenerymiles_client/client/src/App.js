@@ -17,12 +17,12 @@ export class App extends Component {
       showingInfoWindow: false,  // Hides or shows the InfoWindow
       activeMarker: {},          // Shows the active marker upon click
       selectedPlace: {},          // Shows the InfoWindow to the selected place upon a marker
-      stores: [{latitude: jsondata.data[1].lat, longitude: jsondata.data[1].lng, addresses:jsondata.data[1].address},
-        {latitude: jsondata.data[2].lat, longitude: jsondata.data[2].lng, addresses:jsondata.data[2].address},
-        {latitude: jsondata.data[3].lat, longitude: jsondata.data[3].lng, addresses:jsondata.data[3].address},
-        {latitude: jsondata.data[4].lat, longitude: jsondata.data[4].lng, addresses:jsondata.data[4].address},
-        {latitude: jsondata.data[5].lat, longitude: jsondata.data[5].lng, addresses:jsondata.data[5].address},
-        {latitude: jsondata.data[6].lat, longitude: jsondata.data[6].lng, addresses:jsondata.data[6].address}]
+      stores: [{latitude: jsondata.data[1].lat, longitude: jsondata.data[1].lng, addresses:jsondata.data[1].address, price:jsondata.data[1].price},
+        {latitude: jsondata.data[2].lat, longitude: jsondata.data[2].lng, addresses:jsondata.data[2].address, price:jsondata.data[2].price},
+        {latitude: jsondata.data[3].lat, longitude: jsondata.data[3].lng, addresses:jsondata.data[3].address, price:jsondata.data[3].price},
+        {latitude: jsondata.data[4].lat, longitude: jsondata.data[4].lng, addresses:jsondata.data[4].address, price:jsondata.data[4].price},
+        {latitude: jsondata.data[5].lat, longitude: jsondata.data[5].lng, addresses:jsondata.data[5].address, price:jsondata.data[5].price},
+        {latitude: jsondata.data[6].lat, longitude: jsondata.data[6].lng, addresses:jsondata.data[6].address, price:jsondata.data[6].price}]
     };
   }
 
@@ -47,7 +47,7 @@ displayMarkers = () => {
     return <Marker key={index} id={index} position={{
      lat: store.latitude,
      lng: store.longitude
-   }} name={store.addresses}
+   }} name={[store.addresses, " Price: ", store.price]}
    onClick={this.onMarkerClick} />
   })
 }
@@ -64,7 +64,7 @@ displayMarkers = () => {
           {this.displayMarkers()}
           <Marker
           onClick={this.onMarkerClick}
-          name={jsondata.data[0].address}
+          name={[jsondata.data[0].address, " Price: ", jsondata.data[0].price]}
           
         />
          
