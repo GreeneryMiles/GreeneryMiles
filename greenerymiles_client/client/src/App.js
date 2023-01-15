@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { Map, GoogleApiWrapper, Marker, InfoWindow, Circle } from 'google-maps-react';
+import React, { Component } from 'react';
+import { Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react';
 import jsondata from './housedata.json';
 
 const mapStyleRef = {
@@ -68,7 +68,7 @@ displayMarkers = () => {
           name={[jsondata.data[0].address, " Price: ", jsondata.data[0].price]}
           
         />
-         
+        
         <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
@@ -82,6 +82,7 @@ displayMarkers = () => {
     );
   }
 }
+
 
 
 export default GoogleApiWrapper({
