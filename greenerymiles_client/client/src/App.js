@@ -46,11 +46,12 @@ onClose = props => {
           google={this.props.google}
           zoom={15}
           style={mapStyleRef}
-          initialCenter={{ lat: 43.008700, lng:-81.263500}}
+          initialCenter={{ lat: jsondata.data[0].lat, lng: jsondata.data[0].lng}}
         >
           <Marker
           onClick={this.onMarkerClick}
           name={jsondata.data[0].address}
+          
         />
         <InfoWindow
           marker={this.state.activeMarker}
