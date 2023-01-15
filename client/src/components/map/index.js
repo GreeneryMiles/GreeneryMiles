@@ -20,7 +20,13 @@ export class App extends Component {
     this.state = {
       showingInfoWindow: false,  // Hides or shows the InfoWindow
       activeMarker: {},          // Shows the active marker upon click
-      selectedPlace: {}          // Shows the InfoWindow to the selected place upon a marker
+      selectedPlace: {},          // Shows the InfoWindow to the selected place upon a marker
+      stores: [{latitude: jsondata.data[1].lat, longitude: jsondata.data[1].lng, addresses:jsondata.data[1].address, price:jsondata.data[1].price},
+        {latitude: jsondata.data[2].lat, longitude: jsondata.data[2].lng, addresses:jsondata.data[2].address, price:jsondata.data[2].price},
+        {latitude: jsondata.data[3].lat, longitude: jsondata.data[3].lng, addresses:jsondata.data[3].address, price:jsondata.data[3].price},
+        {latitude: jsondata.data[4].lat, longitude: jsondata.data[4].lng, addresses:jsondata.data[4].address, price:jsondata.data[4].price},
+        {latitude: jsondata.data[5].lat, longitude: jsondata.data[5].lng, addresses:jsondata.data[5].address, price:jsondata.data[5].price},
+        {latitude: jsondata.data[6].lat, longitude: jsondata.data[6].lng, addresses:jsondata.data[6].address, price:jsondata.data[6].price}]
     };
   }
 
@@ -40,6 +46,15 @@ onClose = props => {
   }
 };
 
+displayMarkers = () => {
+  return this.state.stores.map((store, index) => {
+    return <Marker key={index} id={index} position={{
+     lat: store.latitude,
+     lng: store.longitude
+   }} name={[store.addresses, " Price: ", store.price]}
+   onClick={this.onMarkerClick} />
+  })
+}
   render() {
     return (
         <Map
@@ -48,13 +63,14 @@ onClose = props => {
           style={mapStyleRef}
           initialCenter={{ lat: 43.008700, lng:-81.263500}}
         >
+          {this.displayMarkers()}
           <Marker
           onClick={this.onMarkerClick}
           name={jsondata.data[0].address}
         />
-        <Circle center={{ lat: 43.008700, lng:-81.263500}}radius={15000} options={closeOptions}/>
-        <Circle center={{ lat: 43.008700, lng:-81.263500}}radius={30000} options={middleOptions}/>
-        <Circle center={{ lat: 43.008700, lng:-81.263500}}radius={45000} options={farOptions}/>
+        <Circle center={{ lat: 43.008700, lng:-81.263500}}radius={500} options={closeOptions}/>
+        <Circle center={{ lat: 43.008700, lng:-81.263500}}radius={1300} options={middleOptions}/>
+        <Circle center={{ lat: 43.008700, lng:-81.263500}}radius={2100} options={farOptions}/>
 
         <InfoWindow
           marker={this.state.activeMarker}
