@@ -1,7 +1,13 @@
-# shehacks_frontend
+# GreeneryMiles
 
+## Frontend Demo 
+
+![demo1](./demo_pic/pic1.png)
+
+![demo2](./demo_pic/pic2.png)
 
 ## API documents
+
 \apis\getAddress
 
 1. getLonAndLatByAddress
